@@ -1,486 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Hosting Guide - Orange Sign Game</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 800px;
-            width: 100%;
-            margin: 20px 0;
-        }
-        
-        h1 {
-            color: #ff7700;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-        }
-        
-        h2 {
-            color: #ff7700;
-            margin: 25px 0 15px 0;
-            border-bottom: 2px solid #ffcc33;
-            padding-bottom: 8px;
-        }
-        
-        .step {
-            background: #fff4e6;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .step-number {
-            display: inline-block;
-            background: #ff7700;
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 35px;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        
-        .screenshot {
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin: 15px 0;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .code-block {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .note {
-            background: #e6f7ff;
-            border-left: 4px solid #1890ff;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        
-        .success {
-            background: #f6ffed;
-            border-left: 4px solid #52c41a;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        
-        .game-preview {
-            text-align: center;
-            margin: 30px 0;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 12px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #ff7700 0%, #ff5500 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            margin: 10px 5px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 5px 15px rgba(255, 119, 0, 0.4);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 119, 0, 0.5);
-            color: white;
-        }
-        
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orange Sign Game</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #ff7700;
+      margin-bottom: 15px;
+      font-size: 2.2rem;
+    }
+
+    .score-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      background: #fff4e6;
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    .score-label {
+      font-size: 1rem;
+      color: #777;
+      margin-bottom: 5px;
+    }
+
+    .score {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff7700;
+    }
+
+    .game-area {
+      position: relative;
+      height: 350px;
+      background: #fff9e6;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .orange-sign {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle at top left, #ff7700, #ff5500);
+      border: 4px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(255, 119, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      transition: transform 0.1s;
+    }
+
+    .orange-sign:hover {
+      transform: scale(1.1);
+    }
+
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      color: #ff5500;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ff7700 0%, #ff5500 100%);
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 119, 0, 0.3);
+    }
+
+    .instructions {
+      margin-top: 15px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>GitHub Hosting Guide for Your Orange Sign Game</h1>
-        
-        <div class="note">
-            Follow these steps to host your game on GitHub Pages for FREE and get a shareable link.
-        </div>
-        
-        <h2>Step-by-Step Instructions</h2>
-        
-        <div class="step">
-            <h3><span class="step-number">1</span>Create a GitHub Account</h3>
-            <p>If you don't have one, go to <a href="https://github.com/signup" target="_blank">github.com/signup</a> and create a free account.</p>
-        </div>
-        
-        <div class="step">
-            <h3><span class="step-number">2</span>Create a New Repository</h3>
-            <p>After logging in, click the "+" icon in the top right and select "New repository".</p>
-            <p>Name it "orange-sign-game" (or any name you prefer).</p>
-            <p>Make sure to set it to "Public" and check "Add a README file".</p>
-        </div>
-        
-        <div class="step">
-            <h3><span class="step-number">3</span>Upload Your HTML File</h3>
-            <p>In your new repository, click the "Add file" button and select "Upload files".</p>
-            <p>Drag and drop your HTML file or click to choose it from your computer.</p>
-            <p>Name the file <strong>index.html</strong> (this is important for GitHub Pages).</p>
-        </div>
-        
-        <div class="step">
-            <h3><span class="step-number">4</span>Enable GitHub Pages</h3>
-            <p>Go to your repository's "Settings" tab.</p>
-            <p>In the left sidebar, click "Pages".</p>
-            <p>Under "Source", select "Deploy from a branch".</p>
-            <p>Under "Branch", select "main" and folder "/ (root)".</p>
-            <p>Click "Save".</p>
-        </div>
-        
-        <div class="step">
-            <h3><span class="step-number">5</span>Get Your Game Link</h3>
-            <p>Wait a few minutes (it might take up to 5 minutes to deploy).</p>
-            <p>Refresh the GitHub Pages settings page.</p>
-            <p>You'll see a message: "Your site is published at..." with your link!</p>
-            <p>Your link will look like: <strong>https://yourusername.github.io/orange-sign-game/</strong></p>
-        </div>
-        
-        <div class="success">
-            <p><strong>Congratulations!</strong> Your game is now live on the internet. Share the link with anyone to play your game!</p>
-        </div>
-        
-        <h2>Your Game Code</h2>
-        
-        <p>Copy and paste this code into a file named <strong>index.html</strong> and upload it to GitHub:</p>
-        
-        <div class="code-block">
-// Copy everything from here
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Orange Sign Game&lt;/title&gt;
-    &lt;style&gt;
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
-        
-        h1 {
-            color: #ff7700;
-            margin-bottom: 15px;
-            font-size: 2.5rem;
-        }
-        
-        .score-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            background: #fff4e6;
-            padding: 15px;
-            border-radius: 12px;
-        }
-        
-        .score-box {
-            flex: 1;
-        }
-        
-        .score-label {
-            font-size: 1rem;
-            color: #777;
-            margin-bottom: 5px;
-        }
-        
-        .score {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ff7700;
-        }
-        
-        .game-area {
-            position: relative;
-            height: 350px;
-            background: #fff9e6;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        
-        .orange-sign {
-            position: absolute;
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #ff7700 0%, #ff5500 100%);
-            border: 4px solid #fff;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(255, 119, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 2rem;
-            transition: transform 0.1s;
-        }
-        
-        .orange-sign:hover {
-            transform: scale(1.1);
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #ff7700 0%, #ff5500 100%);
-            color: white;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        button:hover {
-            transform: translateY(-3px);
-        }
-        
-        .instructions {
-            margin-top: 20px;
-            color: #777;
-            font-size: 1rem;
-        }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div class="container"&gt;
-        &lt;h1&gt;Orange Sign Game&lt;/h1&gt;
-        
-        &lt;div class="score-container"&gt;
-            &lt;div class="score-box"&gt;
-                &lt;div class="score-label"&gt;SCORE&lt;/div&gt;
-                &lt;div id="score" class="score"&gt;0&lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="score-box"&gt;
-                &lt;div class="score-label"&gt;TIME LEFT&lt;/div&gt;
-                &lt;div id="timer" class="score"&gt;30&lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        
-        &lt;div class="game-area" id="gameArea"&gt;
-            &lt;div class="message" id="message"&gt;+1&lt;/div&gt;
-        &lt;/div&gt;
-        
-        &lt;div class="controls"&gt;
-            &lt;button id="startBtn"&gt;Start Game&lt;/button&gt;
-            &lt;button id="resetBtn"&gt;Reset Game&lt;/button&gt;
-        &lt;/div&gt;
-        
-        &lt;div class="instructions"&gt;
-            &lt;p&gt;Click or tap on the orange signs as fast as you can to score points!&lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
+  <div class="container">
+    <h1>Orange Sign Game</h1>
 
-    &lt;script&gt;
-        document.addEventListener('DOMContentLoaded', function() {
-            const gameArea = document.getElementById('gameArea');
-            const scoreDisplay = document.getElementById('score');
-            const timerDisplay = document.getElementById('timer');
-            const startBtn = document.getElementById('startBtn');
-            const resetBtn = document.getElementById('resetBtn');
-            const message = document.getElementById('message');
-            
-            let score = 0;
-            let timer = 30;
-            let gameInterval;
-            let signInterval;
-            let gameActive = false;
-            
-            function createOrangeSign() {
-                if (!gameActive) return;
-                
-                const sign = document.createElement('div');
-                sign.className = 'orange-sign';
-                sign.innerHTML = '&#9873;';
-                
-                const maxX = gameArea.offsetWidth - 70;
-                const maxY = gameArea.offsetHeight - 70;
-                const randomX = Math.floor(Math.random() * maxX);
-                const randomY = Math.floor(Math.random() * maxY);
-                
-                sign.style.left = `${randomX}px`;
-                sign.style.top = `${randomY}px`;
-                
-                sign.addEventListener('click', function() {
-                    if (!gameActive) return;
-                    
-                    score++;
-                    scoreDisplay.textContent = score;
-                    
-                    message.textContent = '+1';
-                    message.style.opacity = '1';
-                    
-                    sign.remove();
-                    
-                    setTimeout(() => {
-                        message.style.opacity = '0';
-                    }, 500);
-                });
-                
-                gameArea.appendChild(sign);
-                
-                setTimeout(() => {
-                    if (sign.parentNode) {
-                        sign.remove();
-                    }
-                }, 1500);
-            }
-            
-            function startGame() {
-                if (gameActive) return;
-                
-                gameActive = true;
-                score = 0;
-                timer = 30;
-                scoreDisplay.textContent = score;
-                timerDisplay.textContent = timer;
-                
-                gameArea.querySelectorAll('.orange-sign').forEach(sign => sign.remove());
-                
-                gameInterval = setInterval(() => {
-                    timer--;
-                    timerDisplay.textContent = timer;
-                    
-                    if (timer <= 0) {
-                        endGame();
-                    }
-                }, 1000);
-                
-                signInterval = setInterval(createOrangeSign, 800);
-                
-                createOrangeSign();
-                
-                startBtn.textContent = "Playing...";
-                startBtn.disabled = true;
-            }
-            
-            function endGame() {
-                gameActive = false;
-                clearInterval(gameInterval);
-                clearInterval(signInterval);
-                
-                message.textContent = `Game Over! Score: ${score}`;
-                message.style.opacity = '1';
-                
-                startBtn.textContent = "Start Game";
-                startBtn.disabled = false;
-            }
-            
-            function resetGame() {
-                clearInterval(gameInterval);
-                clearInterval(signInterval);
-                
-                gameActive = false;
-                score = 0;
-                timer = 30;
-                scoreDisplay.textContent = score;
-                timerDisplay.textContent = timer;
-                
-                gameArea.querySelectorAll('.orange-sign').forEach(sign => sign.remove());
-                
-                message.style.opacity = '0';
-                
-                startBtn.textContent = "Start Game";
-                startBtn.disabled = false;
-            }
-            
-            startBtn.addEventListener('click', startGame);
-            resetBtn.addEventListener('click', resetGame);
-        });
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-// End of code to copy
-        </div>
-        
-        <div class="game-preview">
-            <h2>Your Game Will Look Like This:</h2>
-            <p>Players will see orange signs appear randomly and click them to score points!</p>
-            <a href="#" class="btn">Start Game</a>
-            <a href="#" class="btn">Reset Game</a>
-        </div>
-        
-        <div class="note">
-            <p><strong>Remember:</strong> After uploading to GitHub, it may take a few minutes for your site to become available at the provided URL.</p>
-        </div>
+    <div class="score-container">
+      <div>
+        <div class="score-label">SCORE</div>
+        <div id="score" class="score">0</div>
+      </div>
+      <div>
+        <div class="score-label">TIME LEFT</div>
+        <div id="timer" class="score">30</div>
+      </div>
     </div>
+
+    <div class="game-area" id="gameArea">
+      <div class="message" id="message"></div>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn">Start Game</button>
+      <button id="resetBtn">Reset Game</button>
+    </div>
+
+    <div class="instructions">
+      <p>Tap the orange signs 🟠⚑ as fast as you can to score points!</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const gameArea = document.getElementById('gameArea');
+      const scoreDisplay = document.getElementById('score');
+      const timerDisplay = document.getElementById('timer');
+      const startBtn = document.getElementById('startBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const message = document.getElementById('message');
+
+      let score = 0;
+      let timer = 30;
+      let gameInterval, signInterval;
+      let gameActive = false;
+
+      function createOrangeSign() {
+        if (!gameActive) return;
+
+        const sign = document.createElement('div');
+        sign.className = 'orange-sign';
+        sign.textContent = '⚑';
+
+        const maxX = gameArea.offsetWidth - 70;
+        const maxY = gameArea.offsetHeight - 70;
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        sign.style.left = `${randomX}px`;
+        sign.style.top = `${randomY}px`;
+
+        sign.addEventListener('click', function () {
+          if (!gameActive) return;
+
+          score++;
+          scoreDisplay.textContent = score;
+
+          showMessage('+1');
+
+          sign.remove();
+        });
+
+        gameArea.appendChild(sign);
+
+        setTimeout(() => {
+          if (sign.parentNode) {
+            sign.remove();
+          }
+        }, 1200);
+      }
+
+      function showMessage(text) {
+        message.textContent = text;
+        message.style.opacity = '1';
+        setTimeout(() => {
+          message.style.opacity = '0';
+        }, 700);
+      }
+
+      function startGame() {
+        if (gameActive) return;
+
+        gameActive = true;
+        score = 0;
+        timer = 30;
+        scoreDisplay.textContent = score;
+        timerDisplay.textContent = timer;
+
+        gameArea.querySelectorAll('.orange-sign').forEach(sign => sign.remove());
+
+        gameInterval = setInterval(() => {
+          timer--;
+          timerDisplay.textContent = timer;
+
+          if (timer <= 0) {
+            endGame();
+          }
+        }, 1000);
+
+        signInterval = setInterval(createOrangeSign, 900);
+
+        createOrangeSign();
+
+        startBtn.textContent = "Playing...";
+        startBtn.disabled = true;
+      }
+
+      function endGame() {
+        gameActive = false;
+        clearInterval(gameInterval);
+        clearInterval(signInterval);
+
+        showMessage(`Game Over! Score: ${score}`);
+
+        startBtn.textContent = "Start Game";
+        startBtn.disabled = false;
+      }
+
+      function resetGame() {
+        clearInterval(gameInterval);
+        clearInterval(signInterval);
+
+        gameActive = false;
+        score = 0;
+        timer = 30;
+        scoreDisplay.textContent = score;
+        timerDisplay.textContent = timer;
+
+        gameArea.querySelectorAll('.orange-sign').forEach(sign => sign.remove());
+
+        message.style.opacity = '0';
+
+        startBtn.textContent = "Start Game";
+        startBtn.disabled = false;
+      }
+
+      startBtn.addEventListener('click', startGame);
+      resetBtn.addEventListener('click', resetGame);
+    });
+  </script>
 </body>
 </html>
+
+
