@@ -108,7 +108,7 @@
     </div>
 
     <div class="instructions">
-      <p>Click or tap on the <b>𝕏</b> as fast as you can to score points!</p>
+      <p>Click or tap on the 🍊 as fast as you can to score points!</p>
     </div>
 
     <div class="claim-section">
@@ -150,7 +150,7 @@
 
         const sign = document.createElement('div');
         sign.className = 'orange-sign';
-        sign.textContent = '𝕏';  // changed icon
+        sign.textContent = '🍊';  // changed to orange emoji
 
         const maxX = gameArea.offsetWidth - 70;
         const maxY = gameArea.offsetHeight - 70;
@@ -177,15 +177,15 @@
         }, 1500);
       }
 
-      function updateLeaderboard() {
-        leaderboard.push(score);
-        leaderboard.sort((a, b) => b - a);
+      function updateLeaderboard(name) {
+        leaderboard.push({ name: name, score: score });
+        leaderboard.sort((a, b) => b.score - a.score);
         leaderboard = leaderboard.slice(0, 10); // top 10 only
 
         leaderboardList.innerHTML = '';
-        leaderboard.forEach((s, i) => {
+        leaderboard.forEach((entry, i) => {
           const li = document.createElement('li');
-          li.textContent = `Player ${i+1}: ${s}`;
+          li.textContent = `${entry.name}: ${entry.score}`;
           leaderboardList.appendChild(li);
         });
       }
@@ -220,7 +220,11 @@
         message.style.opacity = '1';
         startBtn.textContent = "Start Game";
         startBtn.disabled = false;
-        updateLeaderboard();
+
+        // Ask for player name
+        let playerName = prompt("Enter your name for the leaderboard:", "Player");
+        if (!playerName) playerName = "Anonymous";
+        updateLeaderboard(playerName);
       }
 
       function resetGame() {
